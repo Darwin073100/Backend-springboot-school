@@ -1,53 +1,53 @@
-create table "class"(
-	"id" serial not null,
-	"name" varchar(250) not null,
-	"credits" bigint not null,
-	constraint pk_class_is primary key("id") 
+CREATE TABLE "class"(
+	"id" SERIAL NOT NULL,
+	"name" VARCHAR(250) NOT NULL,
+	"credits" BIGINT NOT NULL,
+	CONSTRAINT pk_class_is PRIMARY KEY("id")
 );
 
-create table "career"(
-	"id" serial not null,
-	"name" varchar(250) not null,
-	"ages" bigint not null,
-	"code" bigint not null,
-	constraint pk_career_id primary key("id")
+CREATE TABLE "career"(
+	"id" SERIAL NOT NULL,
+	"name" VARCHAR(250) NOT NULL,
+	"ages" BIGINT NOT NULL,
+	"code" BIGINT NOT NULL,
+	CONSTRAINT pk_career_id PRIMARY KEY("id")
 );
-create table "user"(
-	"id" serial not null,
-	"password" varchar(10) not null,
-	"user_name" varchar(50) not null,
-	"email" varchar(250) not null,
-	constraint pk_user_id primary key("id") 
+CREATE TABLE "user"(
+	"id" SERIAL NOT NULL,
+	"password" VARCHAR(10) NOT NULL,
+	"user_name" VARCHAR(50) NOT NULL,
+	"email" VARCHAR(250) NOT NULL,
+	CONSTRAINT pk_user_id PRIMARY KEY("id")
 );
 
-create table "student"(
-	"id" serial not null,
-	"name" varchar(100) not null,
-	"sur_name" varchar(250) not null,
-	"age" bigint null,
-	"image" text null,
-	"semester" bigint not null,
-	"sex" char(2)not null,
-	"career_id" serial not null,
-	"user_id" serial not null,
-	constraint pk_student_id primary key("id"),
-	constraint fk_student_career_id foreign key ("career_id") references "career"("id")
+CREATE TABLE "student"(
+	"id" SERIAL NOT NULL,
+	"name" VARCHAR(100) NOT NULL,
+	"sur_name" VARCHAR(250) NOT NULL,
+	"age" BIGINT null,
+	"image" TEXT null,
+	"semester" BIGINT NOT NULL,
+	"sex" CHAR(2)NOT NULL,
+	"career_id" SERIAL NOT NULL,
+	"user_id" SERIAL NOT NULL,
+	CONSTRAINT pk_student_id PRIMARY KEY("id"),
+	CONSTRAINT fk_student_career_id FOREIGN KEY ("career_id") REFERENCES "career"("id")
 	ON DELETE CASCADE
 	ON UPDATE SET NULL,
-	constraint fk_student_user_id foreign key ("user_id") references "user"("id")
+	CONSTRAINT fk_student_user_id FOREIGN KEY ("user_id") REFERENCES "user"("id")
 	ON DELETE CASCADE
 	ON UPDATE SET NULL
 );
 
-create table "class_student"(
-	"id" serial not null,
-	"class_id" serial not null,
-	"student_id" serial not null,
-	constraint pk_class_student_id primary key("id"),
-	constraint fk_class_student_student_id foreign key ("student_id") references "student"("id")
+CREATE TABLE "class_student"(
+	"class_id" SERIAL NOT NULL,
+	"student_id" SERIAL NOT NULL,
+	"created_at" TIMESTAMP NULL,
+	PRIMARY KEY("class_id", "student_id"),
+	CONSTRAINT fk_class_student_student_id FOREIGN KEY ("student_id") REFERENCES "student"("id")
 	ON DELETE CASCADE
 	ON UPDATE SET NULL,
-	constraint fk_class_student_class_id foreign key ("class_id") references "class"("id")
+	CONSTRAINT fk_class_student_class_id FOREIGN KEY ("class_id") REFERENCES "class"("id")
 	ON DELETE CASCADE
 	ON UPDATE SET NULL
 );
