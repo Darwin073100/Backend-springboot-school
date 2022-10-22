@@ -10,5 +10,5 @@ public interface ClassRepository {
     Optional<ClassModel> findOne(int classId);
     ClassModel save(ClassModel model);
     ClassModel upDate(int id, ClassModel model);
-    boolean delete(int id);
+    Boolean delete(int id);
 }
